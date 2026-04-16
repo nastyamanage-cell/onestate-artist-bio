@@ -236,6 +236,31 @@
     .ig-card .ig-handle { color:var(--muted); font-weight:400; }
     .ig-card .ig-followers { font-size:10px; color:var(--muted); font-weight:400; margin-left:2px; }
 
+    .scroll-hint {
+      display:flex; flex-direction:column; align-items:center; gap:6px;
+      margin-top:24px;
+      cursor:pointer;
+      text-decoration:none;
+      transition:all .3s;
+    }
+    .scroll-hint:hover { opacity:1; }
+    .scroll-hint .scroll-text {
+      font-size:10px; font-weight:600; letter-spacing:1.5px;
+      text-transform:uppercase; color:var(--muted);
+      transition:color .3s;
+    }
+    .scroll-hint:hover .scroll-text { color:var(--gold); }
+    .scroll-hint .scroll-arrow {
+      width:20px; height:20px; color:var(--muted);
+      animation:bounce 2s infinite;
+      transition:color .3s;
+    }
+    .scroll-hint:hover .scroll-arrow { color:var(--gold); }
+    @keyframes bounce {
+      0%,100%{ transform:translateY(0); }
+      50%{ transform:translateY(6px); }
+    }
+
     .video-section {
       padding:60px 52px 80px;
       background:var(--s1);
@@ -363,10 +388,15 @@
         </a>
       </div>
 
+      <a href="#video" class="scroll-hint" onclick="document.getElementById('video').scrollIntoView({behavior:'smooth'});return false;">
+        <span class="scroll-text">Watch track creation video</span>
+        <svg class="scroll-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+
     </section>
   </div>
 
-  <section class="video-section">
+  <section class="video-section" id="video">
     <div class="video-inner">
       <div class="video-label">Behind the Track</div>
       <div class="video-title">Making of <span>"Something from Nothing"</span></div>
