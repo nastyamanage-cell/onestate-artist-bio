@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kino Beats × J-Willz — Artist Bio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --blue:#1a9fff; --gold:#f5c842; --red:#e03030;
+      --dark:#080a0e; --s1:#111318; --s2:#1a1d26;
+      --border:rgba(255,255,255,0.07); --text:#e8eaf0; --muted:#6a7090;
+    }
+
+    body { font-family:'Inter',sans-serif; background:var(--dark); color:var(--text); overflow-x:hidden; }
+
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 28px;
+      background:rgba(8,10,14,0.95); backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-logo { font-size:12px; font-weight:700; letter-spacing:2px; color:var(--gold); text-transform:uppercase; }
+    .nav-dots { display:flex; gap:8px; align-items:center; }
+    .dot { width:7px; height:7px; border-radius:50%; background:var(--border); border:1px solid var(--muted); cursor:pointer; transition:.2s; }
+    .dot.on { background:var(--gold); border-color:var(--gold); transform:scale(1.2); }
+    .counter { font-size:11px; color:var(--muted); margin-left:8px; }
+
+    .wrap { padding-top:52px; }
+    .slide { min-height:100vh; display:none; flex-direction:column; justify-content:center; padding:48px 52px; position:relative; overflow:hidden; }
+    .slide.on { display:flex; }
+
+    .gbg { position:absolute; inset:0; pointer-events:none; opacity:.03;
+      background-image:linear-gradient(var(--gold) 1px,transparent 1px),linear-gradient(90deg,var(--gold) 1px,transparent 1px);
+      background-size:52px 52px; }
+
+    .hero-bg {
+      background: radial-gradient(ellipse at 80% 50%, rgba(245,200,66,0.08) 0%, var(--dark) 65%);
+    }
+
+    .bio-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 52px;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .photo-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .photo-frame {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid rgba(245,200,66,0.3);
+      box-shadow: 0 0 60px rgba(245,200,66,0.15), 0 0 120px rgba(245,200,66,0.06);
+      width: 300px;
+      height: 300px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .photo-badge {
+      text-align: center;
+    }
+    .track-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .track-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: -0.5px;
+    }
+
+    .text-col {}
+
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 11px; border-radius: 20px;
+      font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; border: 1px solid;
+      margin-bottom: 16px;
+      color: var(--gold);
+      border-color: rgba(245,200,66,.3);
+      background: rgba(245,200,66,.07);
+    }
+
+    .artist-names {
+      font-size: clamp(28px, 3.5vw, 48px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -2px;
+      margin-bottom: 6px;
+    }
+    .artist-names .x { color: var(--muted); font-weight: 300; margin: 0 6px; }
+    .artist-names .name1 { color: #fff; }
+    .artist-names .name2 { color: var(--gold); }
+
+    .artist-sub {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-bottom: 20px;
+      border-radius: 2px;
+    }
+
+    .bio-text {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #9aa0b8;
+      margin-bottom: 14px;
+    }
+    .bio-text strong {
+      color: #d0d4e0;
+      font-weight: 600;
+    }
+    .bio-text em {
+      color: var(--gold);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .cta-strip {
+      margin-top: 22px;
+      padding: 14px 18px;
+      background: rgba(245,200,66,0.06);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 10px 10px 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: #c0c8d8;
+      line-height: 1.6;
+    }
+    .cta-strip span {
+      color: var(--gold);
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 14px;
+      margin-top: 22px;
+    }
+    .stat-chip {
+      background: var(--s1);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .stat-chip .sn {
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--gold);
+    }
+    .stat-chip .sl {
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .ig-footer {
+      display:flex; justify-content:center; gap:28px; flex-wrap:wrap;
+      padding:32px 28px 48px;
+      background:var(--s1);
+      border-top:1px solid var(--border);
+    }
+    .ig-link {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 20px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:var(--s2);
+      text-decoration:none;
+      color:var(--text);
+      font-size:13px;
+      font-weight:600;
+      transition:all .2s;
+    }
+    .ig-link:hover {
+      border-color:rgba(245,200,66,.4);
+      background:rgba(245,200,66,.06);
+      color:var(--gold);
+    }
+    .ig-link svg { width:18px; height:18px; flex-shrink:0; }
+    .ig-link .ig-handle { color:var(--muted); font-weight:400; }
+
+    @media(max-width:768px){
+      .slide{padding:40px 20px;}
+      .bio-layout{grid-template-columns:1fr; gap:28px;}
+      .photo-frame{width:220px; height:220px;}
+      .ig-footer{gap:14px; padding:24px 16px 36px;}
+      .ig-link{padding:8px 14px; font-size:12px;}
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">OneState Records</div>
+    <div class="nav-dots">
+      <span class="dot on"></span>
+      <span class="counter">1 / 1</span>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <section class="slide on hero-bg">
+      <div class="gbg"></div>
+
+      <div class="bio-layout">
+
+        <!-- LEFT: Photo -->
+        <div class="photo-col">
+          <div class="photo-frame">
+            <img src="https://8c5c7mbfvvzpe3cy.public.blob.vercel-storage.com/presentations/1776330656019-1000__1000.jpg" alt="J-Willz" />
+          </div>
+          <div class="photo-badge">
+            <div class="track-label">Featured Track</div>
+            <div class="track-name">🎵 Something from Nothing</div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Bio -->
+        <div class="text-col">
+          <span class="tag">🎤 Artist Bio</span>
+
+          <div class="artist-names">
+            <span class="name1">Kino Beats</span><span class="x">×</span><span class="name2">J-Willz</span>
+          </div>
+          <div class="artist-sub">Jamaica × Norfolk &nbsp;·&nbsp; Charlottesville</div>
+          <div class="divider"></div>
+
+          <p class="bio-text">
+            <strong>Kino Beats</strong> — a Jamaica-born, Norfolk-raised producer who cut his teeth touring <em>20+ countries</em> as Lex Luger's DJ before landing credits alongside <strong>Pharrell</strong> on A$AP Rocky's <em>"Hear Me"</em> and producing for <strong>Jeezy, Larry June,</strong> and <strong>Curren$y</strong>.
+          </p>
+          <p class="bio-text">
+            <strong>J-Willz</strong> — Charlottesville's Golden Child, a rapper who was opening for <strong>MGK, Tyga,</strong> and <strong>Waka Flocka</strong> before most artists his age had a SoundCloud page.
+          </p>
+          <p class="bio-text">
+            Together, they created <em>"Something from Nothing"</em> — the flagship anthem for <strong>OneState</strong>, the social roleplay phenomenon where millions of players build their own stories, earn their status, and live a life with no script.
+          </p>
+
+          <div class="cta-strip">
+            This isn't a corporate soundtrack. This is the sound of a world where <span>everyone starts from nothing — and makes it everything.</span>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-chip">
+              <div class="sn">20+</div>
+              <div class="sl">Countries</div>
+            </div>
+            <div class="stat-chip">
+              <div class="sn">7</div>
+              <div class="sl">In-Game Radio Stations</div>
+            </div>
+            <div class="stat-chip">
+              <div class="sn">40M+</div>
+              <div class="sl">OneState Downloads</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <footer class="ig-footer">
+    <a href="https://www.instagram.com/kinobeats/" target="_blank" rel="noopener" class="ig-link">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      Kino Beats <span class="ig-handle">@kinobeats</span>
+    </a>
+    <a href="https://www.instagram.com/jwillzva/" target="_blank" rel="noopener" class="ig-link">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      J-Willz <span class="ig-handle">@jwillzva</span>
+    </a>
+    <a href="https://www.instagram.com/onestate_game/" target="_blank" rel="noopener" class="ig-link">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      OneState <span class="ig-handle">@onestate_game</span>
+    </a>
+  </footer>
+
+  <script>
+    let cur=0;
+    const slides=document.querySelectorAll('.slide');
+    const dots=document.querySelectorAll('.dot');
+    const counter=document.querySelector('.counter');
+    function go(i){
+      if(i<0||i>=slides.length)return;
+      slides[cur].classList.remove('on');
+      if(dots[cur])dots[cur].classList.remove('on');
+      cur=i;
+      slides[cur].classList.add('on');
+      if(dots[cur])dots[cur].classList.add('on');
+      if(counter)counter.textContent=(cur+1)+' / '+slides.length;
+    }
+    document.addEventListener('keydown',e=>{
+      if(e.key==='ArrowRight'||e.key===' ')go(cur+1);
+      if(e.key==='ArrowLeft')go(cur-1);
+    });
+    dots.forEach((d,i)=>d.addEventListener('click',()=>go(i)));
+    go(0);
+  </script>
+</body>
+</html>
